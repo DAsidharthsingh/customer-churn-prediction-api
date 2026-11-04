@@ -12,6 +12,18 @@ app = FastAPI(
 service = ModelService()
 service.load()
 
+@app.get("/")
+def home():
+    return {
+        "message": "Welcome to Customer Churn ML API",
+        "status": "running",
+        "model": "Random Forest Classifier",
+        "version": "1.0.0",
+        "documentation": "/docs",
+        "health_check": "/health",
+        "metadata": "/metadata",
+        "prediction_endpoint": "/predict"
+    }
 
 @app.get("/health")
 def health():
