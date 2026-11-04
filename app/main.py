@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from app.model_service import ModelService
 from app.schemas import CustomerInput
-
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
     title="Customer Churn ML API",
@@ -11,6 +11,16 @@ app = FastAPI(
 
 service = ModelService()
 service.load()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+    ],
+    allow_credentials=False,
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type"],
+)
 
 @app.get("/")
 def home():
